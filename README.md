@@ -32,6 +32,12 @@ llm-workshop/
 
 ├── install.sh # Setup script for HPC environments
 
+├── tools/ # Utility functions for GPU monitoring and Jobs
+
+├── Test/ # Simple GPU test (e.g. CUDA availability)
+
+└── README.md # Project overview and instructions
+
 ## 📜 License
 
 This repository contains code under multiple licenses:
@@ -40,10 +46,3 @@ This repository contains code under multiple licenses:
 - **Third-party code from Meta Platforms, Inc.**: BSD-style license. See headers in individual files and Meta’s LICENSE file.
 
 Please ensure compliance with all applicable licenses when using or modifying this repository.
-
-
-├── tools/ # Utility functions for GPU monitoring and Jobs
-
-├── Test/ # Simple GPU test (e.g. CUDA availability)
-
-└── README.md # Project overview and instructions
