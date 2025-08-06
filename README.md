@@ -32,6 +32,16 @@ llm-workshop/
 
 ├── install.sh # Setup script for HPC environments
 
+## 📜 License
+
+This repository contains code under multiple licenses:
+
+- **Original workshop code**: [MIT License](LICENSE)
+- **Third-party code from Meta Platforms, Inc.**: BSD-style license. See headers in individual files and Meta’s LICENSE file.
+
+Please ensure compliance with all applicable licenses when using or modifying this repository.
+
+
 ├── tools/ # Utility functions for GPU monitoring and Jobs
 
 ├── Test/ # Simple GPU test (e.g. CUDA availability)
