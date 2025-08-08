@@ -32,6 +32,8 @@ llm-workshop/
 
 ├── install.sh # Setup script for HPC environments
 
+├── profiling/ # profiling training on a single GPU
+
 ├── tools/ # Utility functions for GPU monitoring and Jobs
 
 ├── Test/ # Simple GPU test (e.g. CUDA availability)
