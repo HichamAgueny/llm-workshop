@@ -7,6 +7,8 @@ CONTAINER_DIR="${MyWD}/container"
 
 INPUT_DIR="$MyWD/data"
 
+mkdir $INPUT_DIR
+
 echo "--Start copying the singularity image and base model"
 # Copy apptainer image to your work area
 cp /cluster/work/projects/nn9997k/hicham/llm-workshop/container/pytorch2.5_cu2.6.1_py3.10_custom.sif "${CONTAINER_DIR}"
