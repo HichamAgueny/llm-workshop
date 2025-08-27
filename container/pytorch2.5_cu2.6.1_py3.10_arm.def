@@ -5,17 +5,17 @@ Bootstrap: localimage
 From: /cluster/work/projects/nn9997k/hicham/llm-workshop/container/pytorch2.5_cu2.6.1_py3.10.sif
 
 %post
-# This section runs commands inside the container after it's been created.
+# This section runs commands inside the container after it is been created.
 
 # Create symlinks to Python executables.
 # This step ensures that various scripts and tools can find the correct Python version
-# regardless of how it's referenced (e.g., python3.10, python3, or python).
+# regardless of how it is referenced (e.g., python3.10, python3, or python).
 mkdir /opt/python
 ln -s /usr/bin/python3.10 /opt/python/python3.10
 ln -s /opt/python/python3.10 /opt/python/python3
 ln -s /opt/python/python3.10 /opt/python/python
 
-# Add extra packages to the container's Python environment.
+# Add extra packages to the container is Python environment.
 # These packages are necessary for the specific deep learning and model finetuning tasks.
 python -m pip install torchtune==0.4.0
 python -m pip install torchao==0.12.0
