@@ -13,6 +13,125 @@ This workshop includes:
 
 > 📝 Note: All datasets are assumed to be clean and stored in the `data/` directory. No pre-processing required.
 
+## Guide to running the workflows in this repository:
+
+## SSH to Olivia
+
+First, connect to **Olivia** via SSH. Then run the following commands:
+
+```bash
+mkdir /cluster/work/projects/nn9997k/$USER
+cd /cluster/work/projects/nn9997k/$USER
+git clone https://github.com/HichamAgueny/llm-workshop.git
+cd llm-workshop
+````
+
+### Setup Script
+
+Run the setup script:
+
+```bash
+./my_script.sh
+```
+
+This script will:
+
+* Copy the Singularity image and dataset to your project work area.
+* Update paths in the configuration files automatically.
+
+## Running Slurm-Based Jobs
+
+This guide explains how to run fine-tuning and inference jobs (slurm) on an HPC system.
+
+---
+
+## Fine-Tuning
+
+### Single GPU
+```bash
+cd /cluster/work/projects/nn9997k/$USER/llm-workshop/fine-tuning-singlegpu/jobs
+ls
+sbatch job_singleGPU_QA.sh
+````
+
+* The slurm output file is saved in:
+
+  ```
+  /cluster/work/projects/nn9997k/$USER/llm-workshop/fine-tuning-singlegpu/jobs/out
+  ```
+
+#### Monitoring GPU Usage
+
+```bash
+cp /cluster/work/projects/nn9997k/$USER/llm-workshop/tools/monitor_singleGPU.sh $HOME/.local/bin/monitor_singleGPU
+monitor_singleGPU <JobID>
+```
+
+You can find the `<JobID>` by running:
+
+```bash
+squeue --me
+```
+
+---
+
+### Multiple GPUs
+
+```bash
+cd /cluster/work/projects/nn9997k/$USER/llm-workshop/fine-tuning-multigpu/jobs
+ls
+sbatch job_multiGPU_QA.sh
+```
+
+* The slurm output file is saved in:
+
+  ```
+  /cluster/work/projects/nn9997k/$USER/llm-workshop/fine-tuning-multigpu/jobs/out
+  ```
+
+#### Monitoring GPU Usage
+
+```bash
+cp /cluster/work/projects/nn9997k/$USER/llm-workshop/tools/monitor_multiGPU.sh $HOME/.local/bin/monitor_multiGPU
+monitor_multiGPU <JobID>
+```
+
+You can find the `<JobID>` by running:
+
+```bash
+squeue --me
+```
+
+---
+
+## Inference
+
+### QA Task
+
+```bash
+cd /cluster/work/projects/nn9997k/$USER/llm-workshop/inference/jobs
+ls
+sbatch job_inference_QA.sh
+```
+
+* The slurm output file is saved in:
+
+  ```
+  /cluster/work/projects/nn9997k/$USER/llm-workshop/inference/jobs/out
+  ```
+
+---
+
+## Exercise: Summarization Task
+
+Follow the same steps as above, replacing the QA script with the summarization job script.
+
+Fine-Tuning exercise is located in ```/cluster/work/projects/nn9997k/$USER/llm-workshop/exercise```
+
+Inference is located in ```/cluster/work/projects/nn9997k/$USER/llm-workshop/inference```
+
+---
+
 ## Workshop Program – Fine-Tuning LLMs with Multi-GPU Training on Olivia
 
 ## 09:30 – 10:15 | Introduction to Fine-Tuning & Optimization Strategies (30min + 15min)
