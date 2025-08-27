@@ -2,8 +2,7 @@
 
 # Set working directory and paths
 PROJECT_NBR=nn9997k
-USERNAME=hich
-MyWD="/cluster/work/projects/$PROJECT_NBR/$USERNAME/llm-workshop"
+MyWD="/cluster/work/projects/$PROJECT_NBR/$USER/llm-workshop"
 CONTAINER_DIR="${MyWD}/container"
 
 INPUT_DIR="$MyWD/data"
