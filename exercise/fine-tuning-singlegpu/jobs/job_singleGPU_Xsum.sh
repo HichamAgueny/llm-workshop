@@ -22,7 +22,8 @@ echo
 
 # --- Variables and Paths ---
 # Set working directory and paths
-MyWD="/cluster/projects/nn9997k/$USER/llm-workshop"
+PROJECT_NBR=nn9997k
+MyWD="/cluster/work/projects/$PROJECT_NBR/$USER/llm-workshop"
 FINETUNE_DIR="${MyWD}/fine-tuning-singlegpu"
 CONTAINER_DIR="${MyWD}/container"
 APPTAINER_SIF="${CONTAINER_DIR}/pytorch2.5_cu2.6.1_py3.10_custom.sif"
