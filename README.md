@@ -31,6 +31,7 @@ cd llm-workshop
 Run the setup script:
 
 ```bash
+chmod u+x my_script.sh
 ./my_script.sh
 ```
 
