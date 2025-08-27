@@ -1,7 +1,7 @@
 #!/bin/bash -e
-#SBATCH --job-name=QA_Inference_llama3_1B
+#SBATCH --job-name=inference_llama3_1B_QA
 #SBATCH --account=nn9997k
-#SBATCH --time=00:35:00
+#SBATCH --time=00:10:00
 #SBATCH --partition=accel
 #SBATCH --nodes=1
 #SBATCH --gpus=1
@@ -10,10 +10,9 @@
 #SBATCH --cpus-per-task=1
 #SBATCH -o ./out/%x-%j.out
 #SBATCH --mem-per-cpu=8G
+##SBATCH --nodelist=x1000c2s2b0n0
 
-# Modules
-module load craype-accel-nvidia90
-
+# Set proxy settings for HTTP and HTTPS traffic
 export http_proxy=http://10.63.2.48:3128/
 export https_proxy=http://10.63.2.48:3128/
 
@@ -25,25 +24,28 @@ echo
 MyWD="/cluster/projects/nn9997k/$USER/llm-workshop"
 INFERENCE_DIR="${MyWD}/inference"
 CONTAINER_DIR="${MyWD}/container"
-APPTAINER_SIF="${CONTAINER_DIR}/PyTorch2.5_cu2.6.1_Py3.10.sif"
-VENV_PATH="${CONTAINER_DIR}/VirtEnv"
+APPTAINER_SIF="${CONTAINER_DIR}/pytorch2.5_cu2.6.1_py3.10_custom.sif"
 
 CONFIG_DIR="${INFERENCE_DIR}/config_scripts"
 PYTHON_DIR="${INFERENCE_DIR}/python_scripts"
 
-# QA
-CONFIG_FILE="${CONFIG_DIR}/llama_3.2_1B_generation_QA.yaml"
+# Set the path to the Python script that performs merging LoRA weight with base model & inference 
+PYTHON_FILE="${PYTHON_DIR}/inference_peft_lora.py"
 
-PYTHON_FILE="${PYTHON_DIR}/generate.py"
+#QA task
+# Define the base model and lora adpater paths for a specific task for merging... 
+# Set the path to the directory containing the base model
+BASE_MODEL_PATH="$MyWD/data/Llama-3.2-1B-Instruct"
 
-# Define the output & logging directories for fine-tuning results
-OUTPUT_DIR="$MyWD/data/Inference_results/Llama-3.2-1B-Instruct_inference_out"
+# Set the path to the directory containing the saved LORA adapter weights
+# LoRA weights generated from fine-tuning on a single GPU
+LORA_ADAPTER_PATH="$MyWD/data/Llama-3.2-1B-Instruct_out_onlyLoRAweight"
 
-# Create OUTPUT_DIR if it doesn't exist
-if [ ! -d "$OUTPUT_DIR" ]; then
-  echo "Creating output directory: $OUTPUT_DIR"
-  mkdir -p "$OUTPUT_DIR"
-fi
+# uncomment this for LoRA weights generated from fine-tuning on multiple GPUs
+#LORA_ADAPTER_PATH="$MyWD/data/Llama-3.2-1B-Instruct_QA_out_4GPU_onlyLoRAweight"
+
+# Set the path to the text file containing the prompts for the inference task
+PROMPT_FILE="$MyWD/data/prompts/prompt_QA.txt"
 
 # --- Locale Settings ---
 export LANG=en_US.UTF-8
@@ -52,28 +54,21 @@ export LC_ALL=en_US.UTF-8
 echo "--- My Directory: ${MyWD}"
 echo "--- My FineTune Directory: ${INFERENCE_DIR}"
 echo "--- My Container Directory: ${CONTAINER_DIR}"
-echo "--- My Scripts Directory: ${CONFIG_DIR}"
+echo "--- My based model path: ${BASE_MODEL_PATH}"
+echo "--- My lora adapter path: ${LORA_ADAPTER_PATH}"
+echo "--- My prompt file path: ${PROMPT_FILE}"
 echo
 
 # --- Create the Inner Script ---
 # Use a temporary file for the inner script to avoid conflicts and ensure atomicity.
-INNER_SCRIPT_TEMP="${CONFIG_DIR}/.my_script_temp_${SLURM_JOB_ID}"
+INNER_SCRIPT_TEMP="./.my_script_temp_${SLURM_JOB_ID}"
 
 cat > "${INNER_SCRIPT_TEMP}" << EOF
 #!/bin/bash -e
 
-# Activate Virtual Environment
-# Ensure the virtual environment is sourced correctly.
-if [ -f "${VENV_PATH}/bin/activate" ]; then
-    source "${VENV_PATH}/bin/activate"
-else
-    echo "Error: Virtual environment not found at ${VENV_PATH}"
-    exit 1
-fi
-
 echo "Running Inference command:"
 #tune run generate --config "${CONFIG_FILE}"
-python "${PYTHON_FILE}" --config "${CONFIG_FILE}"
+python "${PYTHON_FILE}" --base_model_path "${BASE_MODEL_PATH}" --lora_adapter_path "${LORA_ADAPTER_PATH}" --prompt_file "${PROMPT_FILE}"
 EOF
 
 chmod +x "${INNER_SCRIPT_TEMP}"

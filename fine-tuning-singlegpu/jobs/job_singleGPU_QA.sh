@@ -1,7 +1,7 @@
 #!/bin/bash -e
-#SBATCH --job-name=QA-FineTune_llama3_1B_1GPU
+#SBATCH --job-name=ft-llama3-1B-lora-1gpu
 #SBATCH --account=nn9997k
-#SBATCH --time=00:35:00
+#SBATCH --time=00:15:00
 #SBATCH --partition=accel
 #SBATCH --nodes=1
 #SBATCH --gpus=1
@@ -10,11 +10,9 @@
 #SBATCH --cpus-per-task=1
 #SBATCH -o ./out/%x-%j.out
 #SBATCH --mem-per-cpu=8G
-##SBATCH --nodelist=x1000c0s4b0n0
+##SBATCH --nodelist=x1000c2s2b0n0
 
-# Modules
-module load craype-accel-nvidia90
-
+# Set proxy settings for HTTP and HTTPS traffic
 export http_proxy=http://10.63.2.48:3128/
 export https_proxy=http://10.63.2.48:3128/
 
@@ -27,20 +25,21 @@ echo
 MyWD="/cluster/projects/nn9997k/$USER/llm-workshop"
 FINETUNE_DIR="${MyWD}/fine-tuning-singlegpu"
 CONTAINER_DIR="${MyWD}/container"
-APPTAINER_SIF="${CONTAINER_DIR}/PyTorch2.5_cu2.6.1_Py3.10.sif"
-VENV_PATH="${CONTAINER_DIR}/VirtEnv"
+APPTAINER_SIF="${CONTAINER_DIR}/pytorch2.5_cu2.6.1_py3.10_custom.sif"
 
 CONFIG_DIR="${FINETUNE_DIR}/config_scripts"
 PYTHON_DIR="${FINETUNE_DIR}/python_scripts"
 
 # QA
+# Set the path to the configuration file for the LORA finetuning process
 CONFIG_FILE="${CONFIG_DIR}/1B_lora_single_device_QA.yaml"
 
+# Set the path to the Python script that performs the LORA finetuning on a single GPU
 PYTHON_FILE="${PYTHON_DIR}/lora_finetune_single_device.py"
 
 # Define the output & logging directories for fine-tuning results
-OUTPUT_DIR="$MyWD/data/Llama-3.2-1B-Instruct_out"
-LOGGING_DIR="$MyWD/data/lora_finetune_output"
+OUTPUT_DIR="$MyWD/data/Llama-3.2-1B-Instruct_out_onlyLoRAweight"
+LOGGING_DIR="$MyWD/data/lora_finetune_output_onlyLoRAweight"
 
 # Create OUTPUT_DIR if it doesn't exist
 if [ ! -d "$OUTPUT_DIR" ]; then
@@ -62,23 +61,15 @@ echo "--- My Main Directory: ${MyWD}"
 echo "--- My FineTune Directory: ${FINETUNE_DIR}"
 echo "--- My Container Directory: ${CONTAINER_DIR}"
 echo "--- My Config-Files Directory: ${CONFIG_DIR}"
+echo "--- My Python-Files Directory: ${PYTHON_DIR}"
 echo
 
 # --- Create the Inner Script ---
 # Use a temporary file for the inner script to avoid conflicts and ensure atomicity.
-INNER_SCRIPT_TEMP="${CONFIG_DIR}/.my_script_temp_${SLURM_JOB_ID}"
+INNER_SCRIPT_TEMP="./.my_script_temp_${SLURM_JOB_ID}"
 
 cat > "${INNER_SCRIPT_TEMP}" << EOF
 #!/bin/bash -e
-
-# Activate Virtual Environment
-# Ensure the virtual environment is sourced correctly.
-if [ -f "${VENV_PATH}/bin/activate" ]; then
-    source "${VENV_PATH}/bin/activate"
-else
-    echo "Error: Virtual environment not found at ${VENV_PATH}"
-    exit 1
-fi
 
 # Flash Attention for efficiency
 export USE_FLASH_ATTENTION=1
@@ -109,7 +100,6 @@ time srun apptainer exec --nv -B "${MyWD}:${MyWD}" \
 
 # --- Clean Up Temporary Script ---
 echo
-echo "-- ${INNER_SCRIPT_TEMP}"
 rm -f "${INNER_SCRIPT_TEMP}"
 
 echo
