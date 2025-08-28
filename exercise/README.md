@@ -1,6 +1,11 @@
 # Overview - Fine-tuning for summarization (Xsum dataset)
 This folder contains scripts and configuration files for fine-tuning LLMs on a single GPU and multiple GPUs using LoRA, as well as inference.
 
+In this exercise: 
+- Try summarization (Xsum dataset) with LoRA vs. full fine-tuning.
+- Compare single vs. multi-GPU scaling.
+- Adjust config parameters (learning rate, batch size, epochs) and compare outputs.
+      
 # Single GPU Fine-Tuning
 
 ## Step-by-Step Workflow
