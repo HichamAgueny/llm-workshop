@@ -1,8 +1,8 @@
 ## Table of Contents
 - [Workshop Overview](#workshop-overview)
 - [Setup Instructions](#setup-instructions)
-- [Hands-On Workflow](#hands-on-workflow)
 - [Folder Descriptions](#folder-descriptions)
+- [Hands-On Workflow](#hands-on-workflow)
 - [Workshop Program](#workshop-program)
 
 ## Workshop Overview
@@ -19,14 +19,6 @@ This workshop includes:
 - ✅ Monitoring the GPU usage
 
 > 📝 Note: All datasets are assumed to be clean and stored in the `data/` directory. No pre-processing required.
-
-## Hands-On Workflow
-1. Explore SLURM job scripts.
-2. Review configuration files for LoRA FT.
-3. Submit jobs and monitor GPU usage.
-4. Inspect logs, metrics, and visualize results.
-5. Experiment with hyperparameters (e.g. LoRA rank, dropout).
-6. Perform inference on QA & summarization tasks.
 
 ## Setup Instructions
 
@@ -65,6 +57,21 @@ This script will:
 - `profiling/` – GPU profiling.
 - `tools/` – Utility scripts for monitoring and job management.
 - `test/` – Small scripts to test GPU availability and environment setup.
+  
+## Hands-On Workflow
+1. Explore SLURM job scripts.
+2. Review configuration files for LoRA FT.
+3. Submit jobs and monitor GPU usage.
+4. Inspect logs, metrics, and visualize results.
+5. Experiment with hyperparameters (e.g. LoRA rank, dropout).
+6. Perform inference on QA & summarization tasks.
+
+Detailed instructions for each step are provided in the corresponding folder README files:
+ 
+ - Instructions for Fine-tuning on a single GPU: [fine-tuning-singlegpu/README.md](fine-tuning-singlegpu/README.md)
+ - Instructions for Fine-tuning on multiple GPUs: [fine-tuning-multigpu/README.md](fine-tuning-multigpu/README.md) 
+ - Instructions for inference: [inference/README.md](inference/README.md)
+ - Guided exercises for practice are described here: [exercise/README.md](exercise/README.md)
 
 ## Workshop Program 
 
