@@ -64,7 +64,6 @@ sbatch job_singleGPU_QA.sh
 #### Monitoring GPU Usage
 
 ```bash
-cp /cluster/work/projects/nn9997k/$USER/llm-workshop/tools/monitor_singleGPU.sh $HOME/.local/bin/monitor_singleGPU
 monitor_singleGPU <JobID>
 ```
 
@@ -73,6 +72,7 @@ You can find the `<JobID>` by running:
 ```bash
 squeue --me
 ```
+The script ```monitor_singleGPU``` is already copied to your ```$HOME/.local/bin```
 
 ---
 
@@ -93,7 +93,6 @@ sbatch job_multiGPU_QA.sh
 #### Monitoring GPU Usage
 
 ```bash
-cp /cluster/work/projects/nn9997k/$USER/llm-workshop/tools/monitor_multiGPU.sh $HOME/.local/bin/monitor_multiGPU
 monitor_multiGPU <JobID>
 ```
 
@@ -102,6 +101,7 @@ You can find the `<JobID>` by running:
 ```bash
 squeue --me
 ```
+The script ```monitor_multiGPU``` is already copied to your ```$HOME/.local/bin```
 
 ---
 
