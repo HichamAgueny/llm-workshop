@@ -27,6 +27,9 @@ cp -r /cluster/work/projects/nn9997k/hicham/llm-workshop/data/Llama-3.2-1B-Instr
 cp -r /cluster/work/projects/nn9997k/hicham/llm-workshop/data/prompts ${INPUT_DIR}
 
 # Copy scripts from tools to $HOME/.local/bin
+chmod +x /cluster/work/projects/nn9997k/$USER/llm-workshop/tools/monitor_singleGPU.sh 
+chmod +x /cluster/work/projects/nn9997k/$USER/llm-workshop/tools/monitor_multiGPU.sh
+
 cp /cluster/work/projects/nn9997k/$USER/llm-workshop/tools/monitor_singleGPU.sh $HOME/.local/bin/monitor_singleGPU
 cp /cluster/work/projects/nn9997k/$USER/llm-workshop/tools/monitor_multiGPU.sh $HOME/.local/bin/monitor_multiGPU
 
