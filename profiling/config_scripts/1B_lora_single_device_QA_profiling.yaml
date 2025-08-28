@@ -86,7 +86,7 @@ dtype: bf16
 enable_activation_checkpointing: False  # True reduces memory
 enable_activation_offloading: False  # True reduces memory
 
-# Profiler (disabled)
+# Profiler (enabled)
 profiler:
   _component_: torchtune.training.setup_torch_profiler
   enabled: True
