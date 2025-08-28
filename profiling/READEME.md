@@ -105,3 +105,24 @@ Keep runs short (10 steps) to avoid large files.
 Multi-GPU runs will generate multiple reports (e.g., rank0_..., rank1_...).
 
 Clean up old profiling runs to save storage space.
+
+## 5. Viewing Profiling Data in TensorBoard (Optional)
+
+You can also explore profiling results with ```TensorBoard```:
+
+First install ```tensorboard```in your local machine:
+```bash
+pip install tensorboard
+```
+and then navigate to where the folder **iteration_10** is stored in your local machine. from there run the command:
+```bash
+tensorboard --logdir=iteration_10
+````
+After running the command, you’ll see output indicating that TensorBoard is running, e.g. **TensorBoard 2.20.0 at http://localhost:6006/**
+
+Then open in your browser:
+```bash
+http://localhost:6006
+````
+
+This provides a web-based interface to inspect traces, operator breakdowns, and memory usage etc.
