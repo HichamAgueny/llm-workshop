@@ -23,6 +23,9 @@ sed -i "s|/cluster/work/projects/nn9997k/hicham/llm-workshop/container|${CONTAIN
 # Copy the base model to your work area
 cp -r /cluster/work/projects/nn9997k/hicham/llm-workshop/data/Llama-3.2-1B-Instruct ${INPUT_DIR}
 
+# Copy prompts folder
+cp -r /cluster/work/projects/nn9997k/hicham/llm-workshop/data/prompts ${INPUT_DIR}
+
 echo
 echo "--Start updaing config. files"
 # Update the path in your config. files
