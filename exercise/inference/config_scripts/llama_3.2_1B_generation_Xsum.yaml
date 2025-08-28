@@ -1,0 +1,52 @@
+# Config for running the InferenceRecipe in generate.py to generate output from an LLM
+#
+# To launch, run the following command from root torchtune directory:
+#    tune run generate --config generation
+
+# Model arguments
+model:
+  # Use the base Llama3.2 model component because you'll be loading a *merged* model.
+  # The LoRA weights are integrated into the main model weights already.
+  _component_: torchtune.models.llama3_2.llama3_2_1b
+  # Remove all LoRA-specific parameters as they are not needed when loading a merged model.
+  #_component_: torchtune.models.llama3_2.lora_llama3_2_1b
+
+checkpointer:
+  _component_: torchtune.training.FullModelHFCheckpointer
+  checkpoint_dir: /cluster/projects/nn9997k/hicham/llm-workshop/data/Llama-3.2-1B-Instruct_Xsum_out/
+  checkpoint_files: [
+    hf_model_0001_0.pt
+  ]
+  output_dir: /cluster/projects/nn9997k/hicham/llm-workshop/data/Inference_results/Llama-3.2-1B-Instruct_inference_Xsum_out/ 
+  model_type: LLAMA3
+
+device: cuda
+dtype: bf16
+
+seed: 1234
+
+# Tokenizer arguments
+tokenizer:
+  _component_: torchtune.models.llama3.llama3_tokenizer
+  path: /cluster/projects/nn9997k/hicham/llm-workshop/data/Llama-3.2-1B-Instruct/original/tokenizer.model
+
+# Generation arguments; defaults taken from gpt-fast
+prompt:
+  system: null
+  user: |
+    --Summarize this text: High-Performance Computing (HPC) refers to the use of supercomputers and parallel processing techniques for solving complex computational problems at high speeds. These systems perform quadrillions of calculations per second, far surpassing the capabilities of standard desktop or server machines. HPC plays a critical role in both academic research and industrial applications, driving advancements in fields such as climate modeling, aerospace engineering, genomics, and financial modeling.
+    At its core, HPC relies on the integration of thousands—or even millions—of processing cores working in parallel to perform highly demanding tasks. These systems typically consist of tightly coupled clusters of nodes, high-speed interconnects, and parallel file systems to manage enormous volumes of data efficiently. Software used in HPC is often optimized for scalability, enabling it to take full advantage of the available hardware resources.
+    One of the most impactful uses of HPC is in scientific research. For instance, researchers use HPC to simulate the behavior of molecules at the atomic level, enabling breakthroughs in drug discovery and materials science. In climate science, HPC is used to model global weather patterns with high accuracy, which is essential for understanding climate change and developing mitigation strategies. In engineering, simulations of airflow over aircraft wings or stress analysis in bridges are performed using HPC to reduce the need for physical prototypes.
+    Industries are also harnessing HPC for real-time data analytics, artificial intelligence (AI), and machine learning. These tasks require processing massive datasets, training complex models, and delivering insights quickly—something HPC systems are uniquely suited to handle. For example, the automotive industry uses HPC to develop autonomous driving algorithms and simulate crash tests in virtual environments.
+    As demands for computational power continue to rise, the future of HPC is increasingly tied to innovations like quantum computing, energy-efficient processor architectures, and hybrid cloud infrastructure. Moreover, initiatives like exascale computing aim to push performance to new levels, enabling systems to execute a billion billion (10^18) operations per second.
+
+    --Output:
+instruct_template: null
+chat_format: null
+max_new_tokens: 500
+temperature: 0.6 # 0.8 and 0.6 are popular values to try
+top_k: 300
+
+enable_kv_cache: True
+
+quantizer: null
