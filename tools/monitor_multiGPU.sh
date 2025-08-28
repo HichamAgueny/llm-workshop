@@ -3,7 +3,7 @@
 # Usage: ./monitor_multiGPU.sh <JOB_ID>
 # To stop the script, press Ctrl+C
 
-cp ./gpu_format.awk $HOME
+cp /cluster/work/projects/nn9997k/$USER/llm-workshop/tools/gpu_format.awk /cluster/work/projects/nn9997k/$USER/llm-workshop/tools/bin
 
 JOB_ID="$1"
 
