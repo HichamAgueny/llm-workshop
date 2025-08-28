@@ -1,17 +1,25 @@
-## 🧠 Workshop Overview
+## Workshop Overview
 This repository contains hands-on materials for fine-tuning and deploying **LLaMA-based Large Language Models (LLMs)** for **summarization** and **question answering (QA)**. 
 The workshop is designed for execution on **HPC (High-Performance Computing) systems**, with support for both single and multi-GPU configurations on a single node.
 
 
 This workshop includes:
 
-- ✅ Fine-tuning **LLaMA models** for summarization (e.g. XSum) and QA
-- ✅ Running inference to generate summaries and answers
+- ✅ Fine-tuning **LLaMA models** for QA and summarization (e.g. XSum)
+- ✅ Running inference to generate answers and summaries
 - ✅ Utilizing **single-GPU or multi-GPU setups** setup
 - ✅ Executing everything on **HPC environments** with cluster tools (e.g., SLURM)
 - ✅ Monitoring the GPU usage
 
 > 📝 Note: All datasets are assumed to be clean and stored in the `data/` directory. No pre-processing required.
+
+## Hands-On Workflow
+1. Explore SLURM job scripts.
+2. Review configuration files for LoRA FT.
+3. Submit jobs and monitor GPU usage.
+4. Inspect logs, metrics, and visualize results.
+5. Experiment with hyperparameters (e.g. LoRA rank, dropout).
+6. Perform inference on QA & summarization tasks.
 
 ## Guide to running the workflows in this repository:
 
@@ -44,98 +52,36 @@ This script will:
 
 This guide explains how to run fine-tuning and inference jobs (slurm) on an HPC system.
 
----
+## Repository Structure
+llm-workshop/
 
-## Fine-Tuning
+├── README.md                  # Main workshop guide
 
-### Single GPU
-```bash
-cd /cluster/work/projects/nn9997k/$USER/llm-workshop/fine-tuning-singlegpu/jobs
-ls
-sbatch job_singleGPU_QA.sh
-````
+├── LICENSE                    # Project license
 
-* The slurm output file is saved in:
+├── install.sh                 # HPC environment setup script
 
-  ```
-  /cluster/work/projects/nn9997k/$USER/llm-workshop/fine-tuning-singlegpu/jobs/out
-  ```
+├── presentation-LLM_26Aug.pdf  # Workshop slides
 
-#### Monitoring GPU Usage
+├── container/                 # Singularity container for environment setup
 
-```bash
-monitor_singleGPU <JobID>
-```
+├── data/                      # Clean datasets for summarization and QA
 
-You can find the `<JobID>` by running:
+├── download_xsum.txt          # Script to download pre-cleaned datasets
 
-```bash
-squeue --me
-```
-The script ```monitor_singleGPU``` is already copied to your ```/cluster/work/projects/nn9997k/$USER/llm-workshop/tools/bin```
+├── exercise/                  # Guided notebooks and exercises
 
-and export this path ```export PATH="/cluster/work/projects/nn9997k/$USER/llm-workshop/tools/bin:$PATH"```
+├── fine-tuning-multigpu/      # Multi-GPU fine-tuning examples
 
----
+├── fine-tuning-singlegpu/     # Single-GPU fine-tuning examples
 
-### Multiple GPUs
+├── inference/                 # Inference scripts for summarization and QA
 
-```bash
-cd /cluster/work/projects/nn9997k/$USER/llm-workshop/fine-tuning-multigpu/jobs
-ls
-sbatch job_multiGPU_QA.sh
-```
+├── profiling/                 # GPU profiling tools and scripts
 
-* The slurm output file is saved in:
+├── test/                      # Simple GPU test scripts
 
-  ```
-  /cluster/work/projects/nn9997k/$USER/llm-workshop/fine-tuning-multigpu/jobs/out
-  ```
-
-#### Monitoring GPU Usage
-
-```bash
-monitor_multiGPU <JobID>
-```
-
-You can find the `<JobID>` by running:
-
-```bash
-squeue --me
-```
-The script ```monitor_multiGPU``` is already copied to your ```/cluster/work/projects/nn9997k/$USER/llm-workshop/tools/bin```
-
-and export this path ```export PATH="/cluster/work/projects/nn9997k/$USER/llm-workshop/tools/bin:$PATH"```
-
----
-
-## Inference
-
-### QA Task
-
-```bash
-cd /cluster/work/projects/nn9997k/$USER/llm-workshop/inference/jobs
-ls
-sbatch job_inference_QA.sh
-```
-
-* The slurm output file is saved in:
-
-  ```
-  /cluster/work/projects/nn9997k/$USER/llm-workshop/inference/jobs/out
-  ```
-
----
-
-## Exercise: Summarization Task
-
-Follow the same steps as above, replacing the QA script with the summarization job script.
-
-Fine-Tuning exercise is located in ```/cluster/work/projects/nn9997k/$USER/llm-workshop/exercise```
-
-Inference is located in ```/cluster/work/projects/nn9997k/$USER/llm-workshop/inference```
-
----
+└── tools/                     # Utility functions for GPU monitoring and job management
 
 ## Workshop Program – Fine-Tuning LLMs with Multi-GPU Training on Olivia
 
@@ -183,32 +129,6 @@ Inference is located in ```/cluster/work/projects/nn9997k/$USER/llm-workshop/inf
     - Compare single vs. multi-GPU scaling.
     - Adjust config parameters (learning rate, batch size, epochs) and compare outputs.
     
-## 📁 Repository Structure
-llm-workshop/
-
-├── container/ # Environment & singularity container
-
-├── data/ # Clean, ready-to-use datasets for summarization and QA
-
-├── download_xsum.txt # Optional script to download pre-cleaned datasets
-
-├── exercise/ # Guided notebooks and exercises
-
-├── fine-tuning-multigpu/ # Multi-GPU fine-tuning Example
-
-├── fine-tuning-singlegpu/ # Single-GPU fine-tuning Example
-
-├── inference/ # Scripts for inference (summarization and QA)
-
-├── install.sh # Setup script for HPC environments
-
-├── profiling/ # profiling training on a single GPU
-
-├── tools/ # Utility functions for GPU monitoring and Jobs
-
-├── Test/ # Simple GPU test (e.g. CUDA availability)
-
-└── README.md # Project overview and instructions
 
 ## 📜 License
 
