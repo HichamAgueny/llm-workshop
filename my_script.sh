@@ -10,8 +10,15 @@ INPUT_DIR="$MyWD/data"
 mkdir $INPUT_DIR
 
 echo "--Start copying the singularity image and base model"
-# Copy apptainer image to your work area
+# Copy base image to your work area
+cp /cluster/work/projects/nn9997k/hicham/llm-workshop/container/pytorch2.5_cu2.6.1_py3.10_baseimage_arm.sif "${CONTAINER_DIR}"
+
+# Copy customized apptainer image to your work area
 cp /cluster/work/projects/nn9997k/hicham/llm-workshop/container/pytorch2.5_cu2.6.1_py3.10_custom.sif "${CONTAINER_DIR}"
+
+# Modify the path in the .def file
+cd ${CONTAINER_DIR} 
+sed -i "s|/cluster/work/projects/nn9997k/hicham/llm-workshop/container|${CONTAINER_DIR}|g" "${CONTAINER_DIR}/pytorch2.5_cu2.6.1_py3.10_arm.def"
 
 # Copy the base model to your work area
 cp -r /cluster/work/projects/nn9997k/hicham/llm-workshop/data/Llama-3.2-1B-Instruct ${INPUT_DIR}
