@@ -26,12 +26,17 @@ cp -r /cluster/work/projects/nn9997k/hicham/llm-workshop/data/Llama-3.2-1B-Instr
 # Copy prompts folder
 cp -r /cluster/work/projects/nn9997k/hicham/llm-workshop/data/prompts ${INPUT_DIR}
 
+# Copy Xsum dataset
+cp -r /cluster/work/projects/nn9997k/hicham/llm-workshop/data/XSum ${INPUT_DIR}
+
 # Copy scripts from tools to $HOME/.local/bin
 chmod +x /cluster/work/projects/nn9997k/$USER/llm-workshop/tools/monitor_singleGPU.sh 
 chmod +x /cluster/work/projects/nn9997k/$USER/llm-workshop/tools/monitor_multiGPU.sh
 
-cp /cluster/work/projects/nn9997k/$USER/llm-workshop/tools/monitor_singleGPU.sh $HOME/.local/bin/monitor_singleGPU
-cp /cluster/work/projects/nn9997k/$USER/llm-workshop/tools/monitor_multiGPU.sh $HOME/.local/bin/monitor_multiGPU
+mkdir /cluster/work/projects/nn9997k/$USER/llm-workshop/tools/bin
+cp /cluster/work/projects/nn9997k/$USER/llm-workshop/tools/monitor_singleGPU.sh /cluster/work/projects/nn9997k/$USER/llm-workshop/tools/bin/monitor_singleGPU
+cp /cluster/work/projects/nn9997k/$USER/llm-workshop/tools/monitor_multiGPU.sh /cluster/work/projects/nn9997k/$USER/llm-workshop/tools/bin/monitor_multiGPU
+export PATH="/cluster/work/projects/nn9997k/$USER/llm-workshop/tools/bin:$PATH"
 
 echo
 echo "--Start updaing config. files"
