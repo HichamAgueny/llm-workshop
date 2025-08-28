@@ -41,7 +41,7 @@ checkpointer:
   output_dir: /cluster/projects/nn9997k/hicham/llm-workshop/data/Llama-3.2-1B-Instruct_prof/
   model_type: LLAMA3_2
 resume_from_checkpoint: False
-save_adapter_weights_only: False
+save_adapter_weights_only: True #False
 
 # Dataset and Sampler
 dataset:
