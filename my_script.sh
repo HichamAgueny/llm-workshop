@@ -26,6 +26,10 @@ cp -r /cluster/work/projects/nn9997k/hicham/llm-workshop/data/Llama-3.2-1B-Instr
 # Copy prompts folder
 cp -r /cluster/work/projects/nn9997k/hicham/llm-workshop/data/prompts ${INPUT_DIR}
 
+# Copy scripts from tools to $HOME/.local/bin
+cp /cluster/work/projects/nn9997k/$USER/llm-workshop/tools/monitor_singleGPU.sh $HOME/.local/bin/monitor_singleGPU
+cp /cluster/work/projects/nn9997k/$USER/llm-workshop/tools/monitor_multiGPU.sh $HOME/.local/bin/monitor_multiGPU
+
 echo
 echo "--Start updaing config. files"
 # Update the path in your config. files
