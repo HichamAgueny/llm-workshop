@@ -1,3 +1,10 @@
+## Table of Contents
+- [Workshop Overview](#workshop-overview)
+- [Setup Instructions](#setup-instructions)
+- [Hands-On Workflow](#hands-on-workflow)
+- [Folder Descriptions](#folder-descriptions)
+- [Workshop Program](#workshop-program)
+
 ## Workshop Overview
 This repository contains hands-on materials for fine-tuning and deploying **LLaMA-based Large Language Models (LLMs)** for **summarization** and **question answering (QA)**. 
 The workshop is designed for execution on **HPC (High-Performance Computing) systems**, with support for both single and multi-GPU configurations on a single node.
@@ -21,9 +28,9 @@ This workshop includes:
 5. Experiment with hyperparameters (e.g. LoRA rank, dropout).
 6. Perform inference on QA & summarization tasks.
 
-## Guide to running the workflows in this repository:
+## Setup Instructions
 
-## SSH to Olivia
+### SSH to Olivia
 
 First, connect to **Olivia** via SSH. Then run the following commands:
 
@@ -48,42 +55,18 @@ This script will:
 * Copy the Singularity image and dataset to your project work area.
 * Update paths in the configuration files automatically.
 
-## Running Slurm-Based Jobs
+## Folder Descriptions
+- `container/` – Singularity container for the HPC environment.
+- `data/` – Pre-cleaned datasets for QA and summarization tasks.
+- `exercise/` – Guided notebooks and hands-on exercises.
+- `fine-tuning-singlegpu/` – Single GPU fine-tuning example.
+- `fine-tuning-multigpu/` – Multi-GPU fine-tuning example.
+- `inference/` – Scripts for running inference.
+- `profiling/` – GPU profiling.
+- `tools/` – Utility scripts for monitoring and job management.
+- `test/` – Small scripts to test GPU availability and environment setup.
 
-This guide explains how to run fine-tuning and inference jobs (slurm) on an HPC system.
-
-## Repository Structure
-llm-workshop/
-
-├── README.md                  # Main workshop guide
-
-├── LICENSE                    # Project license
-
-├── install.sh                 # HPC environment setup script
-
-├── presentation-LLM_26Aug.pdf  # Workshop slides
-
-├── container/                 # Singularity container for environment setup
-
-├── data/                      # Clean datasets for summarization and QA
-
-├── download_xsum.txt          # Script to download pre-cleaned datasets
-
-├── exercise/                  # Guided notebooks and exercises
-
-├── fine-tuning-multigpu/      # Multi-GPU fine-tuning examples
-
-├── fine-tuning-singlegpu/     # Single-GPU fine-tuning examples
-
-├── inference/                 # Inference scripts for summarization and QA
-
-├── profiling/                 # GPU profiling tools and scripts
-
-├── test/                      # Simple GPU test scripts
-
-└── tools/                     # Utility functions for GPU monitoring and job management
-
-## Workshop Program – Fine-Tuning LLMs with Multi-GPU Training on Olivia
+## Workshop Program 
 
 ## 09:30 – 10:15 | Introduction to Fine-Tuning & Optimization Strategies (30min + 15min)
 - Overview of LLM and Fine-tuning
