@@ -72,7 +72,9 @@ You can find the `<JobID>` by running:
 ```bash
 squeue --me
 ```
-The script ```monitor_singleGPU``` is already copied to your ```$HOME/.local/bin```
+The script ```monitor_singleGPU``` is already copied to your ```/cluster/work/projects/nn9997k/$USER/llm-workshop/tools/bin```
+
+and export this path ```export PATH="/cluster/work/projects/nn9997k/$USER/llm-workshop/tools/bin:$PATH"```
 
 ---
 
@@ -101,7 +103,9 @@ You can find the `<JobID>` by running:
 ```bash
 squeue --me
 ```
-The script ```monitor_multiGPU``` is already copied to your ```$HOME/.local/bin```
+The script ```monitor_multiGPU``` is already copied to your ```/cluster/work/projects/nn9997k/$USER/llm-workshop/tools/bin```
+
+and export this path ```export PATH="/cluster/work/projects/nn9997k/$USER/llm-workshop/tools/bin:$PATH"```
 
 ---
 
