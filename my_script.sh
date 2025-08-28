@@ -34,6 +34,7 @@ chmod +x /cluster/work/projects/nn9997k/$USER/llm-workshop/tools/monitor_singleG
 chmod +x /cluster/work/projects/nn9997k/$USER/llm-workshop/tools/monitor_multiGPU.sh
 
 mkdir /cluster/work/projects/nn9997k/$USER/llm-workshop/tools/bin
+cp /cluster/work/projects/nn9997k/$USER/llm-workshop/tools/gpu_format.awk /cluster/work/projects/nn9997k/$USER/llm-workshop/tools/bin
 cp /cluster/work/projects/nn9997k/$USER/llm-workshop/tools/monitor_singleGPU.sh /cluster/work/projects/nn9997k/$USER/llm-workshop/tools/bin/monitor_singleGPU
 cp /cluster/work/projects/nn9997k/$USER/llm-workshop/tools/monitor_multiGPU.sh /cluster/work/projects/nn9997k/$USER/llm-workshop/tools/bin/monitor_multiGPU
 export PATH="/cluster/work/projects/nn9997k/$USER/llm-workshop/tools/bin:$PATH"
