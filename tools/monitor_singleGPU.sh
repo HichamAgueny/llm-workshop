@@ -6,7 +6,6 @@
 
 TOOLS_DIR=/cluster/work/projects/nn9997k/$USER/llm-workshop/tools
 TOOLS_BIN="${TOOLS_DIR}/bin"
-cp "${TOOLS_DIR}/gpu_format.awk" "${TOOLS_BIN}"
 
 JOB_ID="$1"
 
@@ -57,7 +56,7 @@ echo
 echo "To stop the script, press Ctrl+C"
 
 # Start monitoring specific GPU
-watch -n 1 "nvidia-smi --id=\$GPU_UUID --query-gpu=utilization.gpu,memory.used,temperature.gpu,power.draw --format=csv,noheader,nounits | awk -f \$TOOLS_BIN/gpu_format.awk"
+watch -n 1 "nvidia-smi --id=\$GPU_UUID --query-gpu=utilization.gpu,memory.used,temperature.gpu,power.draw --format=csv,noheader,nounits | awk -f \$TOOLS_DIR/gpu_format.awk"
 #INNER_EOF
 
 EOF
