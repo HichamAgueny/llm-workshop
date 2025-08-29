@@ -1,57 +1,59 @@
 #!/bin/bash -e
-
 # Set working directory and paths
 PROJECT_NBR=nn9997k
-MyWD="/cluster/work/projects/$PROJECT_NBR/$USER/llm-workshop"
+MyWD="/cluster/work/projects/${PROJECT_NBR}/${USER}/llm-workshop"
 CONTAINER_DIR="${MyWD}/container"
+INPUT_DIR="${MyWD}/data"
+TOOLS_DIR="${MyWD}/tools"
+TOOLS_BIN="${TOOLS_DIR}/bin"
 
-INPUT_DIR="$MyWD/data"
-
-mkdir $INPUT_DIR
+# Ensure required directories exist
+mkdir -p "${INPUT_DIR}" "${CONTAINER_DIR}" "${TOOLS_BIN}"
 
 echo "--Start copying the singularity image and base model"
+
 # Copy base image to your work area
-cp /cluster/work/projects/$PROJECT_NBR/hicham/llm-workshop/container/pytorch2.5_cu2.6.1_py3.10_baseimage_arm.sif "${CONTAINER_DIR}"
+cp "/cluster/work/projects/${PROJECT_NBR}/hicham/llm-workshop/container/pytorch2.5_cu2.6.1_py3.10_baseimage_arm.sif" "${CONTAINER_DIR}/"
 
 # Copy customized apptainer image to your work area
-cp /cluster/work/projects/$PROJECT_NBR/hicham/llm-workshop/container/pytorch2.5_cu2.6.1_py3.10_custom.sif "${CONTAINER_DIR}"
+cp "/cluster/work/projects/${PROJECT_NBR}/hicham/llm-workshop/container/pytorch2.5_cu2.6.1_py3.10_custom.sif" "${CONTAINER_DIR}/"
 
 # Modify the path in the .def file
-cd ${CONTAINER_DIR} 
-sed -i "s|/cluster/work/projects/$PROJECT_NBR/hicham/llm-workshop/container|${CONTAINER_DIR}|g" "${CONTAINER_DIR}/pytorch2.5_cu2.6.1_py3.10_arm.def"
+cd "${CONTAINER_DIR}"
+sed -i "s|/cluster/work/projects/${PROJECT_NBR}/hicham/llm-workshop/container|${CONTAINER_DIR}|g" "${CONTAINER_DIR}/pytorch2.5_cu2.6.1_py3.10_arm.def"
 
 # Copy the base model to your work area
-cp -r /cluster/work/projects/$PROJECT_NBR/hicham/llm-workshop/data/Llama-3.2-1B-Instruct ${INPUT_DIR}
+cp -r "/cluster/work/projects/${PROJECT_NBR}/hicham/llm-workshop/data/Llama-3.2-1B-Instruct" "${INPUT_DIR}/"
 
 # Copy prompts folder
-cp -r /cluster/work/projects/$PROJECT_NBR/hicham/llm-workshop/data/prompts ${INPUT_DIR}
+cp -r "/cluster/work/projects/${PROJECT_NBR}/hicham/llm-workshop/data/prompts" "${INPUT_DIR}/"
 
 # Copy Xsum dataset
-cp -r /cluster/work/projects/$PROJECT_NBR/hicham/llm-workshop/data/XSum ${INPUT_DIR}
+cp -r "/cluster/work/projects/${PROJECT_NBR}/hicham/llm-workshop/data/XSum" "${INPUT_DIR}/"
 
 # Copy scripts from tools to tools/bin
-chmod +x /cluster/work/projects/$PROJECT_NBR/$USER/llm-workshop/tools/monitor_singleGPU.sh 
-chmod +x /cluster/work/projects/$PROJECT_NBR/$USER/llm-workshop/tools/monitor_multiGPU.sh
+chmod +x "${TOOLS_DIR}/monitor_singleGPU.sh"
+chmod +x "${TOOLS_DIR}/monitor_multiGPU.sh"
+cp "${TOOLS_DIR}/monitor_singleGPU.sh" "${TOOLS_BIN}/monitor_singleGPU"
+cp "${TOOLS_DIR}/monitor_multiGPU.sh" "${TOOLS_BIN}/monitor_multiGPU"
+chmod +x "${TOOLS_BIN}/monitor_singleGPU" "${TOOLS_BIN}/monitor_multiGPU"
 
-mkdir /cluster/work/projects/$PROJECT_NBR/$USER/llm-workshop/tools/bin
-cp /cluster/work/projects/$PROJECT_NBR/$USER/llm-workshop/tools/monitor_singleGPU.sh /cluster/work/projects/$PROJECT_NBR/$USER/llm-workshop/tools/bin/monitor_singleGPU
-cp /cluster/work/projects/$PROJECT_NBR/$USER/llm-workshop/tools/monitor_multiGPU.sh /cluster/work/projects/$PROJECT_NBR/$USER/llm-workshop/tools/bin/monitor_multiGPU
-
-# Define the line to be added to .bashrc.
-PATH_TO_ADD='export PATH="/cluster/work/projects/$PROJECT_NBR/$USER/llm-workshop/tools/bin:$PATH"'
-
+# Define the line to be added to .bashrc (fully expanded path; escape $PATH so it expands on shell init)
+PATH_LINE="export PATH=\"${TOOLS_BIN}:\$PATH\""
 # Check if the line already exists in the .bashrc file to avoid duplicates.
-# The 'grep -q' command searches silently and returns an exit code.
-if ! grep -qF "$PATH_TO_ADD" "$HOME/.bashrc"; then
-    # If the line does not exist, append it to the file.
-    echo "$PATH_TO_ADD" >> "$HOME/.bashrc"
+if ! grep -qxF "$PATH_LINE" "$HOME/.bashrc"; then
+    echo "$PATH_LINE" >> "$HOME/.bashrc"
     echo "Path added to .bashrc."
 else
     echo "Path already exists in .bashrc. No changes made."
 fi
 
-# To make the changes effective immediately in the current shell, you can "source" the file.
-source "$HOME/.bashrc"
+# Make PATH available for the remainder of this script run
+export PATH="${TOOLS_BIN}:$PATH"
+# If the script is sourced, update the current shell too
+if [[ "${BASH_SOURCE[0]}" != "$0" ]]; then
+    source "$HOME/.bashrc"
+fi
 
 echo
 echo "--Start updaing config. files"
