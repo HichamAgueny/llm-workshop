@@ -31,9 +31,13 @@ This folder contains scripts and configuration files for fine-tuning LLMs on a s
   ```
 
 4. **Monitoring GPU Usage**
-
+A script for monitoring the GPU usage and GPU memory utilization is made available in:
+```
+/cluster/work/projects/nn9997k/$USER/llm-workshop/tools/bin
+```
+And this path ```export PATH="/cluster/work/projects/nn9997k/$USER/llm-workshop/tools/bin:$PATH"``` is already added to your `.bashrc`. You simply need to source it:
 ```bash
-export PATH="/cluster/work/projects/nn9997k/$USER/llm-workshop/tools/bin:$PATH"
+source ~/.bashrc
 monitor_singleGPU <JobID>
 ```
 
