@@ -3,7 +3,8 @@
 # Usage: ./monitor_multiGPU.sh <JOB_ID>
 # To stop the script, press Ctrl+C
 
-cp /cluster/work/projects/nn9997k/$USER/llm-workshop/tools/gpu_format.awk /cluster/work/projects/nn9997k/$USER/llm-workshop/tools/bin
+TOOLS_DIR=/cluster/work/projects/nn9997k/$USER/llm-workshop/tools
+TOOLS_BIN="${TOOLS_DIR}/bin"
 
 JOB_ID="$1"
 
@@ -40,6 +41,6 @@ echo
 echo "To stop the script, press Ctrl+C"
 
 # Start monitoring specific GPU
-watch -n 1 "nvidia-smi --query-gpu=utilization.gpu,memory.used,temperature.gpu,power.draw --format=csv,noheader,nounits | awk -f ./gpu_format.awk"
+watch -n 1 "nvidia-smi --query-gpu=utilization.gpu,memory.used,temperature.gpu,power.draw --format=csv,noheader,nounits | awk -f \$TOOLS_DIR/gpu_format.awk"
 EOF
 
