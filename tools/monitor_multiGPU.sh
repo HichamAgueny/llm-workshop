@@ -41,6 +41,6 @@ echo
 echo "To stop the script, press Ctrl+C"
 
 # Start monitoring specific GPU
-watch -n 1 "nvidia-smi --query-gpu=utilization.gpu,memory.used,temperature.gpu,power.draw --format=csv,noheader,nounits | awk -f \$TOOLS_DIR/gpu_format.awk"
+watch -n 1 "nvidia-smi --query-gpu=utilization.gpu,memory.used,temperature.gpu,power.draw --format=csv,noheader,nounits | awk -f $TOOLS_DIR/gpu_format.awk"
 EOF
 
