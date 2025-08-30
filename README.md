@@ -67,10 +67,11 @@ This script will:
 6. Perform inference on QA & summarization tasks.
 
 Detailed instructions for each step are provided in the corresponding folder README files:
- 
+ - Instructions for building customised PyTorch singularity container: [container/READEME.md](container/READEME.md)
  - Instructions for Fine-tuning on a single GPU: [fine-tuning-singlegpu/README.md](fine-tuning-singlegpu/README.md)
  - Instructions for Fine-tuning on multiple GPUs: [fine-tuning-multigpu/README.md](fine-tuning-multigpu/README.md) 
  - Instructions for inference: [inference/README.md](inference/README.md)
+ - Instructions for GPU monitoring and visualizing metrics: [tools/README.md](tools/README.md)
  - Instructions for profiling: [profiling/READEME.md](profiling/READEME.md)
  - Guided exercises for practice are described here: [exercise/README.md](exercise/README.md)
 
