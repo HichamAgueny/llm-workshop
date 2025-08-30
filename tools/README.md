@@ -3,7 +3,7 @@
 To run some plots, it is preferable to launch an interactive session in order to access available modules:
 
 ```bash
-salloc -A NN9997K -t 006:30:00 -p accel -N 1 --gpus 1 --mem-per-cpu 8G
+salloc -A NN9997K -t 00:15:00 -p accel -N 1 --gpus 1 --mem-per-cpu 8G
 ```
 The output looks like this:
 ```bash
