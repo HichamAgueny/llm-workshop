@@ -86,3 +86,49 @@ python -c "import torch; print(torch.__config__.show())"
 ```bash
 python -c "import torch; print(torch.cuda.nccl.version())"  # Prints NCCL version used
 ```
+
+- Check installed packges
+```bash
+pip list
+
+tune ls
+```
+
+## Fine-tuning Setup
+
+Once you have successfully launched the **PyTorch container**, you can set up fine-tuning for **LLaMA 3.2-1B-Instruct** using Hugging Face and the provided tuning recipes.
+
+---
+
+### 1. Download the Model
+Use `tune` to fetch the pretrained weights from Hugging Face:
+```bash
+tune download meta-llama/Llama-3.2-1B-Instruct \
+  --output-dir /cluster/work/projects/nn9970k/$USER/llm-workshop/data/Llama-3.2-1B-Instruct \
+  --ignore-patterns "original/consolidated*" \
+  --hf-token your-hugging-face-token
+```
+**Note** Replace your-hugging-face-token with a valid Hugging Face access token.
+
+### 2. Copy Configuration Files
+
+Copy the built-in configuration files, respectively, for single GPU, multiple GPUs and inference, into your working directory:
+```bash
+tune cp llama3_2/1B_lora_single_device .
+tune cp llama3_2/1B_lora_multi_device .
+tune cp generation .
+```
+
+Update the dataset path inside the configuration:
+```bash
+sed -i "s|/tmp/Llama-3.2-1B-Instruct|/cluster/work/projects/nn9970k/$USER/llm-workshop/data/Llama-3.2-1B-Instruct|g" 1B_lora_single_device.yaml
+```
+
+### 3. Copy Fine-Tuning Recipe Scripts
+
+Copy in the fine-tuning (for single GPU & multiple GPUs) and generation python scripts:
+```bash
+tune cp lora_finetune_single_device .
+tune cp lora_finetune_distributed .
+tune cp generate .
+```
