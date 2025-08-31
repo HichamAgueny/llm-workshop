@@ -110,6 +110,9 @@ tune download meta-llama/Llama-3.2-1B-Instruct \
 ```
 **Note** Replace your-hugging-face-token with a valid Hugging Face access token.
 
+**Note:** You do not need to download the pretrained weights.  
+          They are already available at:  `/cluster/work/projects/nn9970k/$USER/llm-workshop/data/Llama-3.2-1B-Instruct`
+ 
 ### 2. Copy Configuration Files
 
 Copy the built-in configuration files, respectively, for single GPU, multiple GPUs and inference, into your working directory:
