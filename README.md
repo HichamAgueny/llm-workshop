@@ -68,7 +68,7 @@ This script will:
 
 Detailed instructions for each step are provided in the corresponding folder README files:
  - Instructions for building customised PyTorch singularity container: [container/READEME.md](container/READEME.md)
- - Instructions for testing the built PyTorch container: [container/READEME.md](container/READEME.md#testing-the-container)
+ - Instructions for testing the built PyTorch container: [container/READEME.md#testing-the-container](container/READEME.md#testing-the-container)
  - Instructions for fine-tuning setup (i.e config. files, recipes etc): [container/READEME.md#fine-tuning-setup](container/READEME.md#fine-tuning-setup) 
  - Instructions for Fine-tuning on a single GPU: [fine-tuning-singlegpu/README.md](fine-tuning-singlegpu/README.md)
  - Instructions for Fine-tuning on multiple GPUs: [fine-tuning-multigpu/README.md](fine-tuning-multigpu/README.md) 
