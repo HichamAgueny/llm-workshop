@@ -1,7 +1,6 @@
-````markdown
-# 🚀 LLM Workshop Guide: Fine-Tuning & Inference with LLaMA on HPC
+# LLM Workshop Guide: Fine-Tuning & Inference with LLaMA on HPC
 
-## 📑 Table of Contents
+## Table of Contents
 - [1. Workshop Overview](#1-workshop-overview)
 - [2. Environment Setup](#2-environment-setup)
   - [2.1. Connect to Olivia HPC](#21-connect-to-olivia-hpc)
@@ -324,5 +323,3 @@ Scripts & configs are under:
 * Benchmark **single vs multi-GPU** scaling.
 * Experiment with **dropout, rank, LR**.
 * Profile **memory bottlenecks**.
-
-```
