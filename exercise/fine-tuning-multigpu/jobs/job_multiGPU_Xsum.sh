@@ -1,6 +1,6 @@
 #!/bin/bash -e
 #SBATCH --job-name=ft-llama3-1B-lora-4gpu_Xsum
-#SBATCH --account=nn9997k
+#SBATCH --account=nn9970k
 #SBATCH --time=00:35:00
 #SBATCH --partition=accel
 #SBATCH --nodes=1
@@ -21,7 +21,7 @@ echo
 
 # --- Variables and Paths ---
 # Set working directory and paths
-PROJECT_NBR=nn9997k
+PROJECT_NBR=nn9970k
 MyWD="/cluster/work/projects/$PROJECT_NBR/$USER/llm-workshop"
 FINETUNE_DIR="${MyWD}/exercise/fine-tuning-multigpu"
 CONTAINER_DIR="${MyWD}/container"
