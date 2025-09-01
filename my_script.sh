@@ -1,6 +1,6 @@
 #!/bin/bash -e
 # Set working directory and paths
-PROJECT_NBR=nn9997k
+PROJECT_NBR=nn9970k
 MyWD="/cluster/work/projects/${PROJECT_NBR}/${USER}/llm-workshop"
 CONTAINER_DIR="${MyWD}/container"
 INPUT_DIR="${MyWD}/data"
