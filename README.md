@@ -24,7 +24,14 @@ This workshop includes:
 
 ### SSH to Olivia
 
-First, connect to **Olivia** via SSH. Then run the following commands:
+First, connect to **Olivia** via SSH:
+```bash
+ssh username@olivia.sigma2.no
+(username@olivia.sigma2.no) One-time password (OATH) for `username': 
+(username@olivia.sigma2.no) Password: 
+username@uan02:~> 
+```
+Then run the following commands:
 
 ```bash
 mkdir /cluster/work/projects/nn9970k/$USER
