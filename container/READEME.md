@@ -57,7 +57,7 @@ apptainer build --ignore-fakeroot-command \
 ## Testing the Container
 Exit the building node and launch an interactive session:
 ```bash
-salloc -A NN9997K -t 00:15:00 -p accel -N 1 --gpus 1 --mem-per-cpu 8G
+salloc -A NN9970K -t 00:15:00 -p accel -N 1 --gpus 1 --mem-per-cpu 8G
 ```
 and then ssh to the allocated compute node e.g. `ssh x1000c0s0b1n0`
 
