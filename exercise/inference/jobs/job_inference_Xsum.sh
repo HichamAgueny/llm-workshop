@@ -1,6 +1,6 @@
 #!/bin/bash -e
 #SBATCH --job-name=inference_llama3_1B_Xsum
-#SBATCH --account=nn9997k
+#SBATCH --account=nn9970k
 #SBATCH --time=00:10:00
 #SBATCH --partition=accel
 #SBATCH --nodes=1
@@ -21,7 +21,7 @@ echo
 
 # --- Variables and Paths ---
 # Set working directory and paths
-PROJECT_NBR=nn9997k
+PROJECT_NBR=nn9970k
 MyWD="/cluster/work/projects/$PROJECT_NBR/$USER/llm-workshop"
 INFERENCE_DIR="${MyWD}/exercise/inference"
 CONTAINER_DIR="${MyWD}/container"

@@ -3,7 +3,7 @@
 #
 # This config assumes that you've run the following command before launching
 # this run:
-#   tune download meta-llama/Llama-3.2-1B-Instruct --output-dir /cluster/projects/nn9997k/hicham/llm-workshop/data/Llama-3.2-1B-Instruct --ignore-patterns "original/consolidated.00.pth"
+#   tune download meta-llama/Llama-3.2-1B-Instruct --output-dir /cluster/projects/nn9970k/hicham/llm-workshop/data/Llama-3.2-1B-Instruct --ignore-patterns "original/consolidated.00.pth"
 #
 # To launch on 2 devices, run the following command from root:
 #   tune run --nproc_per_node 2 lora_finetune_distributed --config llama3_2/1B_lora
@@ -20,7 +20,7 @@
 # Tokenizer
 tokenizer:
   _component_: torchtune.models.llama3.llama3_tokenizer
-  path: /cluster/projects/nn9997k/hicham/llm-workshop/data/Llama-3.2-1B-Instruct/original/tokenizer.model
+  path: /cluster/projects/nn9970k/hicham/llm-workshop/data/Llama-3.2-1B-Instruct/original/tokenizer.model
   max_seq_len: null
 
 # Model Arguments
@@ -34,12 +34,12 @@ model:
 
 checkpointer:
   _component_: torchtune.training.FullModelHFCheckpointer
-  checkpoint_dir: /cluster/projects/nn9997k/hicham/llm-workshop/data/Llama-3.2-1B-Instruct/
+  checkpoint_dir: /cluster/projects/nn9970k/hicham/llm-workshop/data/Llama-3.2-1B-Instruct/
   checkpoint_files: [
     model.safetensors
   ]
   recipe_checkpoint: null
-  output_dir: /cluster/projects/nn9997k/hicham/llm-workshop/data/Llama-3.2-1B-Instruct/
+  output_dir: /cluster/projects/nn9970k/hicham/llm-workshop/data/Llama-3.2-1B-Instruct/
   model_type: LLAMA3_2
 resume_from_checkpoint: False
 save_adapter_weights_only: True #False
@@ -72,7 +72,7 @@ gradient_accumulation_steps: 1 #8  # Use to increase virtual batch size
 compile: False  # pytorch compile, set to true for better perf/memory
 
 # Logging
-output_dir: /cluster/projects/nn9997k/hicham/llm-workshop/data/lora_finetune_output
+output_dir: /cluster/projects/nn9970k/hicham/llm-workshop/data/lora_finetune_output
 metric_logger:
   _component_: torchtune.training.metric_logging.DiskLogger
   log_dir: ${output_dir}

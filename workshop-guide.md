@@ -41,8 +41,8 @@ It is designed for **HPC environments** with support for **single-GPU and multi-
 ### 2.1. Connect to Olivia HPC
 ```bash
 ssh your-username@olivia.sigma2.no
-mkdir /cluster/work/projects/nn9997k/$USER
-cd /cluster/work/projects/nn9997k/$USER
+mkdir /cluster/work/projects/nn9970k/$USER
+cd /cluster/work/projects/nn9970k/$USER
 git clone https://github.com/HichamAgueny/llm-workshop.git
 cd llm-workshop
 ````

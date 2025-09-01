@@ -3,7 +3,7 @@
 To run some plots, it is preferable to launch an interactive session in order to access available modules:
 
 ```bash
-salloc -A NN9997K -t 00:15:00 -p accel -N 1 --gpus 1 --mem-per-cpu 8G
+salloc -A nn9970k -t 00:15:00 -p accel -N 1 --gpus 1 --mem-per-cpu 8G
 ```
 The output looks like this:
 ```bash
@@ -22,7 +22,7 @@ cd /cluster/work/projects/nn9970k/$USER/llm-workshop/tools
 ## Plot Training Metrics
 
 A python code `plot_training_metrics.py` is made availble  here `/cluster/work/projects/nn9970k/$USER/llm-workshop/tools`. The code:
-1. Reads the logs from `/cluster/work/projects/nn9997k/hich/llm-workshop/data/lora_finetune_output_onlyLoRAweight/log_1756467542.txt`
+1. Reads the logs from `/cluster/work/projects/nn9970k/hich/llm-workshop/data/lora_finetune_output_onlyLoRAweight/log_1756467542.txt`
 2. Plots `tokens_per_second_per_gpu` as a function Training steps.
 3. Plots `peak_memory_active` and `peak_memory_reserved` as a function of Training steps'
 

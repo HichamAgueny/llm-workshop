@@ -3,7 +3,7 @@
 # Usage: ./monitor_multiGPU.sh <JOB_ID>
 # To stop the script, press Ctrl+C
 
-TOOLS_DIR=/cluster/work/projects/nn9997k/$USER/llm-workshop/tools
+TOOLS_DIR=/cluster/work/projects/nn9970k/$USER/llm-workshop/tools
 TOOLS_BIN="${TOOLS_DIR}/bin"
 
 JOB_ID="$1"

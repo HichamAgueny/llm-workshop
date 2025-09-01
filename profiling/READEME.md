@@ -8,7 +8,7 @@ This folder contains tools and instructions for profiling GPU usage and memory c
 
 To generate profiling data, you first need to enable and configure the profiler in the config file located at:
 ```bash
-/cluster/work/projects/nn9997k/$USER/llm-workshop/profiling/config_scripts
+/cluster/work/projects/nn9970k/$USER/llm-workshop/profiling/config_scripts
 ````
 
 
@@ -21,7 +21,7 @@ profiler:
   enabled: True
 
   # Output directory for trace artifacts
-  output_dir: /cluster/projects/nn9997k/$USER/llm-workshop/data/profiling_outputs
+  output_dir: /cluster/projects/nn9970k/$USER/llm-workshop/data/profiling_outputs
 
   # Activities to trace
   cpu: True
@@ -55,12 +55,12 @@ For quick experiments, set training to run for ~10 steps only.
 
 Once profiling is enabled in the config, submit the job script from:
 ```bash
-cd /cluster/work/projects/nn9997k/$USER/llm-workshop/profiling/jobs
+cd /cluster/work/projects/nn9970k/$USER/llm-workshop/profiling/jobs
 sbatch job_singleGPU_profiling.sh
 ````
 This will generate profiling outputs in the directory:
 ```bash
-/cluster/projects/nn9997k/$USER/llm-workshop/data/profiling_outputs/
+/cluster/projects/nn9970k/$USER/llm-workshop/data/profiling_outputs/
 ````
 
 ## 3. Copy Profiling Data from Cluster to Local Machine
@@ -68,7 +68,7 @@ This will generate profiling outputs in the directory:
 After the job completes, copy the profiling results from the cluster to your local machine (for analyzing profiling results):
 
 ```bash
-scp -r -J USERNAME@betzy.sigma2.no USERNAME@olivia.sigma2.no:/cluster/work/projects/nn9997k/USERNAME/llm-workshop/data/profiling_outputs/iteration_10 .
+scp -r -J USERNAME@betzy.sigma2.no USERNAME@olivia.sigma2.no:/cluster/work/projects/nn9970k/USERNAME/llm-workshop/data/profiling_outputs/iteration_10 .
 ````
 -r → copies the folder recursively.
 
