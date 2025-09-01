@@ -27,8 +27,8 @@ This workshop includes:
 First, connect to **Olivia** via SSH. Then run the following commands:
 
 ```bash
-mkdir /cluster/work/projects/nn9997k/$USER
-cd /cluster/work/projects/nn9997k/$USER
+mkdir /cluster/work/projects/nn9970k/$USER
+cd /cluster/work/projects/nn9970k/$USER
 git clone https://github.com/HichamAgueny/llm-workshop.git
 cd llm-workshop
 ````
