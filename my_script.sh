@@ -6,30 +6,43 @@ CONTAINER_DIR="${MyWD}/container"
 INPUT_DIR="${MyWD}/data"
 TOOLS_DIR="${MyWD}/tools"
 TOOLS_BIN="${TOOLS_DIR}/bin"
+OWNER_PATH=/cluster/work/projects/${PROJECT_NBR}/hicham/llm-workshop
 
 # Ensure required directories exist
 mkdir -p "${INPUT_DIR}" "${CONTAINER_DIR}" "${TOOLS_BIN}"
 
 echo "--Start copying the singularity image and base model"
 
-# Copy base image to your work area
-cp "/cluster/work/projects/${PROJECT_NBR}/hicham/llm-workshop/container/pytorch2.5_cu2.6.1_py3.10_baseimage_arm.sif" "${CONTAINER_DIR}/"
+# Copy base image to your work area if it doesn't already exist
+BASE_IMAGE="pytorch2.5_cu2.6.1_py3.10_baseimage_arm.sif"
+if [ ! -f "${CONTAINER_DIR}/${BASE_IMAGE}" ]; then
+    cp "${OWNER_PATH}/container/${BASE_IMAGE}" "${CONTAINER_DIR}/"
+fi
 
-# Copy customized apptainer image to your work area
-cp "/cluster/work/projects/${PROJECT_NBR}/hicham/llm-workshop/container/pytorch2.5_cu2.6.1_py3.10_custom.sif" "${CONTAINER_DIR}/"
+# Copy customized apptainer image to your work area if it doesn't already exist
+CUSTOM_IMAGE="pytorch2.5_cu2.6.1_py3.10_custom.sif"
+if [ ! -f "${CONTAINER_DIR}/${CUSTOM_IMAGE}" ]; then
+    cp "${OWNER_PATH}/container/${CUSTOM_IMAGE}" "${CONTAINER_DIR}/"
+fi
 
 # Modify the path in the .def file
 cd "${CONTAINER_DIR}"
-sed -i "s|/cluster/work/projects/${PROJECT_NBR}/hicham/llm-workshop/container|${CONTAINER_DIR}|g" "${CONTAINER_DIR}/pytorch2.5_cu2.6.1_py3.10_arm.def"
+sed -i "s|${OWNER_PATH}/container|${CONTAINER_DIR}|g" "${CONTAINER_DIR}/pytorch2.5_cu2.6.1_py3.10_arm.def"
 
 # Copy the base model to your work area
-cp -r "/cluster/work/projects/${PROJECT_NBR}/hicham/llm-workshop/data/Llama-3.2-1B-Instruct" "${INPUT_DIR}/"
+if [ ! -e "${INPUT_DIR}/Llama-3.2-1B-Instruct" ]; then
+    cp -r "${OWNER_PATH}/data/Llama-3.2-1B-Instruct" "${INPUT_DIR}/"
+fi
 
 # Copy prompts folder
-cp -r "/cluster/work/projects/${PROJECT_NBR}/hicham/llm-workshop/data/prompts" "${INPUT_DIR}/"
+if [ ! -e "${INPUT_DIR}/prompts" ]; then
+    cp -r "${OWNER_PATH}/data/prompts" "${INPUT_DIR}/"
+fi
 
 # Copy Xsum dataset
-cp -r "/cluster/work/projects/${PROJECT_NBR}/hicham/llm-workshop/data/XSum" "${INPUT_DIR}/"
+if [ ! -e "${INPUT_DIR}/XSum" ]; then
+    cp -r "${OWNER_PATH}/data/XSum" "${INPUT_DIR}/"
+fi
 
 # Copy scripts from tools to tools/bin
 chmod +x "${TOOLS_DIR}/monitor_singleGPU.sh"
@@ -63,35 +76,35 @@ FINETUNE_DIR="${MyWD}/fine-tuning-singlegpu"
 CONFIG_DIR="${FINETUNE_DIR}/config_scripts"
 
 cd ${CONFIG_DIR}
-sed -i "s|/cluster/projects/$PROJECT_NBR/hicham/llm-workshop/data|$MyWD/data|g" "$CONFIG_DIR/1B_lora_single_device_QA.yaml"
+OLD_PATH=/cluster/projects/nn9970k/hicham/llm-workshop
+sed -i "s|${OLD_PATH}/data|$MyWD/data|g" "$CONFIG_DIR/1B_lora_single_device_QA.yaml"
 
 # Fine-tuning on a multiple GPUs
 FINETUNE_DIR="${MyWD}/fine-tuning-multigpu"
 CONFIG_DIR="${FINETUNE_DIR}/config_scripts"
 
 cd ${CONFIG_DIR}
-sed -i "s|/cluster/projects/$PROJECT_NBR/hicham/llm-workshop/data|$MyWD/data|g" "$CONFIG_DIR/1B_lora_multi_device_QA.yaml"
+sed -i "s|${OLD_PATH}/data|$MyWD/data|g" "$CONFIG_DIR/1B_lora_multi_device_QA.yaml"
 
 # Exercise
 FINETUNE_DIR="${MyWD}/exercise/fine-tuning-singlegpu"
 CONFIG_DIR="${FINETUNE_DIR}/config_scripts"
 
 cd ${CONFIG_DIR}
-sed -i "s|/cluster/projects/$PROJECT_NBR/hicham/llm-workshop/data|$MyWD/data|g" "$CONFIG_DIR/1B_lora_single_device_Xsum.yaml"
+sed -i "s|${OLD_PATH}/data|$MyWD/data|g" "$CONFIG_DIR/1B_lora_single_device_Xsum.yaml"
 
 # Fine-tuning on a multiple GPUs
 FINETUNE_DIR="${MyWD}/exercise/fine-tuning-multigpu"
 CONFIG_DIR="${FINETUNE_DIR}/config_scripts"
 
 cd ${CONFIG_DIR}
-sed -i "s|/cluster/projects/$PROJECT_NBR/hicham/llm-workshop/data|$MyWD/data|g" "$CONFIG_DIR/1B_lora_multi_device_Xsum.yaml"
+sed -i "s|${OLD_PATH}/data|$MyWD/data|g" "$CONFIG_DIR/1B_lora_multi_device_Xsum.yaml"
 
-# Profiling
 PROFILING_DIR="${MyWD}/profiling"
 CONFIG_DIR="${PROFILING_DIR}/config_scripts"
 
 cd ${CONFIG_DIR}
-sed -i "s|/cluster/projects/$PROJECT_NBR/hicham/llm-workshop/data|$MyWD/data|g" "$CONFIG_DIR/1B_lora_single_device_QA_profiling.yaml"
+sed -i "s|${OLD_PATH}/data|$MyWD/data|g" "$CONFIG_DIR/1B_lora_single_device_QA_profiling.yaml"
 
 echo "---finished :)"
 
