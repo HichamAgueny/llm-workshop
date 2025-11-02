@@ -11,36 +11,25 @@ A dedicated compute node has been temporarily reserved for container building:
 ```bash
 ssh x1000c2s0b0n0
 ```
-### 2. Set Up Temporary Directories
 
-Define environment variables so that Apptainer uses temporary storage under `/tmp/$USER`:
-```bash
-export APPTAINER_TMPDIR=/tmp/$USER
-export APPTAINER_CACHEDIR=/tmp/$USER
-```
-
-### 3. Pull the Base PyTorch Container
+### 2. Pull the Base PyTorch Container
 
 Download the official NVIDIA PyTorch container (pinned by digest for reproducibility):
 ```bash
 cd /cluster/work/projects/nn9970k/$USER/llm-workshop/container
-apptainer pull pytorch2.5_cu2.6.1_py3.10.sif \
-    docker://nvcr.io/nvidia/pytorch@sha256:618162fa0745658a9084745a2a08c38697f09801e15c674ec0fd72658346437b
+apptainer pull --arch arm64 --disable-cache pytorch2.5_cu2.61_py3.10.sif \
+                 docker://nvcr.io/nvidia/pytorch:24.09-py3
 ```
-### 4. Clean Up Temporary Directory
+where the flag `--arch` specifies the architecture `arm64` for the Olivia supercomputer.
+The flag `--disable-cashe` forces a clean and fresh download (see also [here](https://documentation.sigma2.no/hpc_machines/olivia/software_stack.html#downloading-containers)).
 
-Remove temporary files to free space:
-```bash
-rm -rf /tmp/$USER
-```
-
-### 5. Add Extra Packages
+### 3. Add Extra Packages
 
 Update the container with additional packages as defined in the .def file:
 
 **pytorch2.5_cu2.6.1_py3.10_arm.def**
 
-### 6. Build the Custom Container
+### 4. Build the Custom Container
 
 Use the definition file to build a new image:
 ```bash
