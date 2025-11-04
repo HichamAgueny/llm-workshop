@@ -54,7 +54,7 @@ Look at the output logs for training metrics:
    cd /cluster/work/projects/nn9970k/$USER/llm-workshop/data/lora_finetune_output_onlyLoRAweight
    ls
    ````
-Optionally, plot metrics to visualize performance.
+Optionally, plot metrics to visualize performance. A python code for visualizing `tokens_per_second_per_gpu` is available in `tools` folder (see [here](https://github.com/HichamAgueny/llm-workshop/blob/main/tools/plot_metrics_token.py)).
 
 LoRA weights are saved in:
 ```bash
