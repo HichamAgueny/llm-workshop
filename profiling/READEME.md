@@ -68,11 +68,9 @@ This will generate profiling outputs in the directory:
 After the job completes, copy the profiling results from the cluster to your local machine (for analyzing profiling results):
 
 ```bash
-scp -r -J USERNAME@betzy.sigma2.no USERNAME@olivia.sigma2.no:/cluster/work/projects/nn9970k/USERNAME/llm-workshop/data/profiling_outputs/iteration_10 .
+scp -r USERNAME@olivia.sigma2.no:/cluster/work/projects/nn9970k/USERNAME/llm-workshop/data/profiling_outputs/iteration_10 .
 ````
 -r → copies the folder recursively.
-
--J → specifies a jump host (Betzy → Olivia).
 
 Specify your **USERNAME** and replace paths as needed if your profiling output is in a different directory.
 
