@@ -6,10 +6,9 @@ This guide explains how to build a custom PyTorch container using **Apptainer (f
 
 ## Steps
 
-### 1. SSH into the Build Node
-A dedicated compute node has been temporarily reserved for container building:
+### 1. Launch an interactive session
 ```bash
-ssh x1000c2s0b0n0
+salloc -A NN9970K -t 00:15:00 -p accel -N 1 --gpus 1 --mem-per-cpu 8G --reservation=llm_course
 ```
 
 ### 2. Pull the Base PyTorch Container
@@ -44,12 +43,6 @@ apptainer build --ignore-fakeroot-command \
  - Custom image: **pytorch2.5_cu2.6.1_py3.10_custom.sif**
 
 ## Testing the Container
-Exit the building node and launch an interactive session:
-```bash
-salloc -A NN9970K -t 00:15:00 -p accel -N 1 --gpus 1 --mem-per-cpu 8G
-```
-and then ssh to the allocated compute node e.g. `ssh x1000c0s0b1n0`
-
 ### 1. Navigate to the Working Directory
 ```bash
 cd /cluster/work/projects/nn9970k/$USER/llm-workshop/container
