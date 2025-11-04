@@ -10,6 +10,7 @@
 #SBATCH --cpus-per-task=1
 #SBATCH -o ./out/%x-%j.out
 #SBATCH --mem-per-cpu=8G
+#SBATCH --reservation=llm_course
 ##SBATCH --nodelist=x1000c0s4b0n0
 
 echo "--Node: $(hostname)"
