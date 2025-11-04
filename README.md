@@ -126,7 +126,7 @@ Detailed instructions for each step are provided in the corresponding folder REA
 
 **15:15 – 16:00** | Hands-on continuity
 
-    - Try e.g. summarization (Xsum dataset) with LoRA vs. full fine-tuning.
+    - Try e.g. summarization (Xsum dataset) with LoRA.
     - Compare single vs. multi-GPU scaling.
     - Adjust config parameters (learning rate, batch size, epochs) and compare outputs.
     
