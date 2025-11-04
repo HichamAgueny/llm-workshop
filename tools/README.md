@@ -3,7 +3,7 @@
 To run some plots, it is preferable to launch an interactive session in order to access available modules:
 
 ```bash
-salloc -A nn9970k -t 00:15:00 -p accel -N 1 --gpus 1 --mem-per-cpu 8G
+salloc -A nn9970k -t 00:15:00 -p accel -N 1 --gpus 1 --mem-per-cpu 8G --reservationName=llm_course
 ```
 The output looks like this:
 ```bash
@@ -13,9 +13,8 @@ salloc: job 90341 has been allocated resources
 salloc: Granted job allocation 90341
 salloc: Nodes **x1000c0s0b1n0** are ready for job
 ```
-and displays the hostname.
+
 ```
-ssh x1000c0s0b1n0
 cd /cluster/work/projects/nn9970k/$USER/llm-workshop/tools
 ```
 
