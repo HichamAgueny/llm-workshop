@@ -10,6 +10,7 @@
 #SBATCH --cpus-per-task=4
 #SBATCH -o ./out/%x-%j.out
 #SBATCH --mem-per-cpu=8G
+#SBATCH --reservation=llm_course
 ##SBATCH --nodelist=x1000c5s0b0n0
 
 # Set proxy settings for HTTP and HTTPS traffic
