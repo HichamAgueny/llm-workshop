@@ -22,8 +22,8 @@ cd /cluster/work/projects/nn9970k/$USER/llm-workshop/tools
 
 A python code `plot_training_metrics.py` is made availble  here `/cluster/work/projects/nn9970k/$USER/llm-workshop/tools`. The code:
 1. Reads the logs from `/cluster/work/projects/nn9970k/hich/llm-workshop/data/lora_finetune_output_onlyLoRAweight/log_1756467542.txt`
-2. Plots `tokens_per_second_per_gpu` as a function Training steps.
-3. Plots `peak_memory_active` and `peak_memory_reserved` as a function of Training steps'
+2. Plots `tokens_per_second_per_gpu` as a function Training steps (see the code `plot_metrics_token.py`).
+3. Plots `peak_memory_active` and `peak_memory_reserved` as a function of Training steps' (see the code `plot_memory.py`).
 
 To run the python code:
 1. Load this module `module load cray-python/3.11.7`
@@ -34,4 +34,6 @@ To run the python code:
 `export https_proxy=http://10.63.2.48:3128/`
 
 4. Install matplotlib `pip install matplotlib`
-5. run `python plot_training_metrics.py`
+5. run `python plot_metrics_token.py` to plot `tokens_per_second_per_gpu`
+6. run `plot_memory.py` to plot `peak_memory_active` and `peak_memory_reserved`
+ **N.B** Make sure to specify the log file in the python code.  
